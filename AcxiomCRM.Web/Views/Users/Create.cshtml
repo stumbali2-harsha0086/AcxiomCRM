@@ -1,0 +1,50 @@
+@{
+    ViewData["Title"] = "Create User";
+    var rolesList = ViewBag.RolesList as List<AcxiomCRM.Domain.Entities.ApplicationRole> ?? new List<AcxiomCRM.Domain.Entities.ApplicationRole>();
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-header bg-white border-0 pt-4 px-4">
+                <h3 class="fw-bold mb-0"><i class="bi bi-person-plus text-primary me-2"></i>Create New User</h3>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Create" method="post">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger p-2 small" role="alert"></div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Full Name</label>
+                        <input type="text" name="fullName" class="form-control" required placeholder="User Full Name" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Email Address</label>
+                        <input type="email" name="email" class="form-control" required placeholder="user@acxiomcrm.com" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Temporary Password (Min 8 Chars)</label>
+                        <input type="password" name="password" class="form-control" required placeholder="Password@123" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Assigned Primary Role</label>
+                        <select name="role" class="form-select" required>
+                            @foreach (var r in rolesList)
+                            {
+                                <option value="@r.Name">@r.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="text-end">
+                        <a asp-action="Index" class="btn btn-outline-secondary me-2">Cancel</a>
+                        <button type="submit" class="btn btn-primary px-4 fw-bold">Create User</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

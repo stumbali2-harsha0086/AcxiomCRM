@@ -1,0 +1,70 @@
+@model IEnumerable<AcxiomCRM.Domain.Entities.Opportunity>
+@{
+    ViewData["Title"] = "Sales Pipeline";
+    var stages = Enum.GetValues(typeof(OpportunityStage)).Cast<OpportunityStage>();
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="fw-bold mb-1"><i class="bi bi-kanban text-primary me-2"></i>Sales Pipeline</h2>
+        <p class="text-muted mb-0">Weighted Pipeline Forecast: <strong class="text-success fs-5">₹@ViewBag.WeightedValue.ToString("N0")</strong></p>
+    </div>
+    <div>
+        <a asp-action="Index" class="btn btn-outline-secondary me-2"><i class="bi bi-table"></i> Table View</a>
+        <a asp-action="Create" class="btn btn-primary"><i class="bi bi-plus-lg"></i> New Deal</a>
+    </div>
+</div>
+
+<div class="row g-3">
+    @foreach (var stage in stages)
+    {
+        var stageOpps = Model.Where(o => o.Stage == stage).ToList();
+        var stageTotal = stageOpps.Sum(o => o.Amount);
+
+        <div class="col">
+            <div class="card border-0 bg-light shadow-sm rounded-4 h-100">
+                <div class="card-header bg-white border-0 pt-3 pb-2 d-flex justify-content-between align-items-center">
+                    <h6 class="fw-bold mb-0 text-uppercase text-muted">@stage (@stageOpps.Count)</h6>
+                    <span class="badge bg-primary rounded-pill">₹@stageTotal.ToString("N0")</span>
+                </div>
+                <div class="card-body p-2" style="min-height: 400px; max-height: 600px; overflow-y: auto;">
+                    @foreach (var opp in stageOpps)
+                    {
+                        <div class="card border mb-2 shadow-sm rounded-3">
+                            <div class="card-body p-3">
+                                <h6 class="fw-bold mb-1 text-dark">@opp.OpportunityName</h6>
+                                <p class="small text-muted mb-2"><i class="bi bi-building"></i> @(opp.Customer?.CustomerName ?? "Lead Deal")</p>
+
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="fw-bold text-success">₹@opp.Amount.ToString("N0")</span>
+                                    <span class="badge bg-light text-dark border">@opp.Probability%</span>
+                                </div>
+
+                                <div class="btn-group w-100 mt-2">
+                                    @if (stage != OpportunityStage.Qualification)
+                                    {
+                                        <form asp-action="UpdateStage" method="post" class="d-inline flex-grow-1">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="id" value="@opp.OpportunityId" />
+                                            <input type="hidden" name="newStage" value="@((OpportunityStage)(stage - 1))" />
+                                            <button type="submit" class="btn btn-sm btn-light border w-100" title="Move Left"><i class="bi bi-arrow-left"></i></button>
+                                        </form>
+                                    }
+                                    @if (stage != OpportunityStage.Lost && stage != OpportunityStage.Won)
+                                    {
+                                        <form asp-action="UpdateStage" method="post" class="d-inline flex-grow-1">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="id" value="@opp.OpportunityId" />
+                                            <input type="hidden" name="newStage" value="@((OpportunityStage)(stage + 1))" />
+                                            <button type="submit" class="btn btn-sm btn-light border w-100" title="Move Right"><i class="bi bi-arrow-right"></i></button>
+                                        </form>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,101 @@
+@{
+    ViewData["Title"] = "Reports Hub";
+}
+
+<div class="mb-4">
+    <h2 class="fw-bold mb-1"><i class="bi bi-bar-chart-line text-primary me-2"></i>CRM Intelligence & Reports Hub</h2>
+    <p class="text-muted">Access scoped business reports, conversion analytics and operational statistics</p>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-4 h-100 p-3">
+            <div class="card-body">
+                <i class="bi bi-people text-primary display-4 mb-3 d-block"></i>
+                <h4 class="fw-bold">1. Customer Report</h4>
+                <p class="text-muted small">Customer Master listing, status, owner assignment and creation history.</p>
+                <a asp-action="CustomerReport" class="btn btn-outline-primary w-100 fw-bold">View Report <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-4 h-100 p-3">
+            <div class="card-body">
+                <i class="bi bi-person-lines-fill text-info display-4 mb-3 d-block"></i>
+                <h4 class="fw-bold">2. Lead Report</h4>
+                <p class="text-muted small">Lead acquisition sources, status distribution, owner assignments and progress.</p>
+                <a asp-action="LeadReport" class="btn btn-outline-info w-100 fw-bold">View Report <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-4 h-100 p-3">
+            <div class="card-body">
+                <i class="bi bi-calendar-event text-warning display-4 mb-3 d-block"></i>
+                <h4 class="fw-bold">3. Follow-Up Report</h4>
+                <p class="text-muted small">Planned, completed, missed and overdue customer & lead follow-up activities.</p>
+                <a asp-action="FollowUpReport" class="btn btn-outline-warning text-dark w-100 fw-bold">View Report <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-4 h-100 p-3">
+            <div class="card-body">
+                <i class="bi bi-graph-up text-success display-4 mb-3 d-block"></i>
+                <h4 class="fw-bold">4. Opportunity Report</h4>
+                <p class="text-muted small">Opportunity stage-wise breakdown, deal amounts, win probability and expected close dates.</p>
+                <a asp-action="OpportunityReport" class="btn btn-outline-success w-100 fw-bold">View Report <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-4 h-100 p-3">
+            <div class="card-body">
+                <i class="bi bi-funnel text-primary display-4 mb-3 d-block"></i>
+                <h4 class="fw-bold">5. Pipeline Report</h4>
+                <p class="text-muted small">Stage-wise and Owner-wise sales pipeline values and weighted forecasts.</p>
+                <a asp-action="PipelineReport" class="btn btn-outline-primary w-100 fw-bold">View Report <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-4 h-100 p-3">
+            <div class="card-body">
+                <i class="bi bi-arrow-repeat text-purple display-4 mb-3 d-block" style="color: #6f42c1;"></i>
+                <h4 class="fw-bold">6. Conversion Report</h4>
+                <p class="text-muted small">Lead-to-Customer conversion rates, opportunity win ratios and outcome value totals.</p>
+                <a asp-action="ConversionReport" class="btn btn-outline-secondary w-100 fw-bold">View Report <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+    {
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm rounded-4 h-100 p-3">
+                <div class="card-body">
+                    <i class="bi bi-person-workspace text-danger display-4 mb-3 d-block"></i>
+                    <h4 class="fw-bold">7. User Activity Report</h4>
+                    <p class="text-muted small">User action counts, customers created, leads assigned and activity metrics.</p>
+                    <a asp-action="UserActivityReport" class="btn btn-outline-danger w-100 fw-bold">View Report <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm rounded-4 h-100 p-3">
+                <div class="card-body">
+                    <i class="bi bi-shield-check text-dark display-4 mb-3 d-block"></i>
+                    <h4 class="fw-bold">8. Audit Report</h4>
+                    <p class="text-muted small">Comprehensive security and business event audit trail for compliance.</p>
+                    <a asp-action="AuditReport" class="btn btn-outline-dark w-100 fw-bold">View Report <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

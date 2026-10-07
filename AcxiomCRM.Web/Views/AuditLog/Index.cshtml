@@ -1,0 +1,85 @@
+@model IEnumerable<AcxiomCRM.Domain.Entities.AuditLog>
+@{
+    ViewData["Title"] = "Audit Logs";
+    var usersList = ViewBag.UsersList as List<AcxiomCRM.Services.Interfaces.UserDto> ?? new List<AcxiomCRM.Services.Interfaces.UserDto>();
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="fw-bold mb-1"><i class="bi bi-journal-check text-primary me-2"></i>System & Business Audit Log</h2>
+        <p class="text-muted mb-0">Append-only security and operational audit trail</p>
+    </div>
+</div>
+
+<!-- Filter Bar -->
+<div class="card card-body bg-light border-0 mb-4 shadow-sm">
+    <form method="get" asp-action="Index" class="row g-3">
+        <div class="col-md-3">
+            <select name="userId" class="form-select">
+                <option value="">All Users</option>
+                @foreach (var u in usersList)
+                {
+                    <option value="@u.Id" selected="@(ViewBag.UserId == u.Id)">@u.FullName (@u.Email)</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-2">
+            <input type="text" name="module" value="@ViewBag.Module" class="form-control" placeholder="Module / Entity..." />
+        </div>
+        <div class="col-md-2">
+            <input type="text" name="action" value="@ViewBag.Action" class="form-control" placeholder="Action (Login, Create...)" />
+        </div>
+        <div class="col-md-2">
+            <input type="date" name="startDate" value="@ViewBag.StartDate" class="form-control" />
+        </div>
+        <div class="col-md-3 d-flex">
+            <button type="submit" class="btn btn-primary me-2 flex-grow-1"><i class="bi bi-search"></i> Filter</button>
+            <a asp-action="Index" class="btn btn-outline-secondary"><i class="bi bi-arrow-counterclockwise"></i> Reset</a>
+        </div>
+    </form>
+</div>
+
+<div class="table-responsive shadow-sm rounded-4">
+    <table class="table table-hover align-middle mb-0 font-monospace small">
+        <thead class="table-dark">
+            <tr>
+                <th>Timestamp</th>
+                <th>User</th>
+                <th>Action</th>
+                <th>Entity</th>
+                <th>Record ID</th>
+                <th>Old Value / Context</th>
+                <th>New Value / Details</th>
+                <th>IP Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr>
+                    <td colspan="8" class="text-center py-4 text-muted">No audit log records found matching criteria.</td>
+                </tr>
+            }
+            else
+            {
+                @foreach (var log in Model)
+                {
+                    <tr>
+                        <td class="text-nowrap fw-bold">@log.CreatedDate.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                        <td class="fw-bold text-primary">@(log.User?.FullName ?? log.UserId)</td>
+                        <td>
+                            <span class="badge @(log.Action.Contains("Login") || log.Action.Contains("Password") ? "bg-warning text-dark" : log.Action.Contains("Delete") ? "bg-danger" : "bg-info")">
+                                @log.Action
+                            </span>
+                        </td>
+                        <td class="fw-bold">@log.EntityName</td>
+                        <td>@log.RecordId</td>
+                        <td class="text-truncate" style="max-width: 200px;" title="@log.OldValue">@log.OldValue</td>
+                        <td class="text-truncate" style="max-width: 250px;" title="@log.NewValue">@log.NewValue</td>
+                        <td>@log.IpAddress</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

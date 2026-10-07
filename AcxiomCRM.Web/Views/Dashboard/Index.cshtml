@@ -1,0 +1,244 @@
+@model AcxiomCRM.Services.Interfaces.DashboardDataDto
+@{
+    ViewData["Title"] = "CRM Dashboard";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="fw-bold mb-1"><i class="bi bi-speedometer2 text-primary me-2"></i>Executive Dashboard</h2>
+        <p class="text-muted mb-0">Welcome, <strong>@ViewBag.UserName</strong> (@ViewBag.CurrentRole)</p>
+    </div>
+
+    <!-- Date Range Filters -->
+    <div class="btn-group shadow-sm" role="group">
+        <a asp-action="Index" asp-route-rangeFilter="today" class="btn btn-outline-primary @(ViewBag.RangeFilter == "today" ? "active" : "")">Today</a>
+        <a asp-action="Index" asp-route-rangeFilter="thisweek" class="btn btn-outline-primary @(ViewBag.RangeFilter == "thisweek" ? "active" : "")">This Week</a>
+        <a asp-action="Index" asp-route-rangeFilter="thismonth" class="btn btn-outline-primary @(ViewBag.RangeFilter == "thismonth" ? "active" : "")">This Month</a>
+        <button type="button" class="btn btn-outline-primary @(ViewBag.RangeFilter == "custom" ? "active" : "")" data-bs-toggle="collapse" data-bs-target="#customFilterCollapse">
+            <i class="bi bi-funnel"></i> Custom Range
+        </button>
+    </div>
+</div>
+
+<div class="collapse mb-4 @(ViewBag.RangeFilter == "custom" ? "show" : "")" id="customFilterCollapse">
+    <div class="card card-body bg-light border-0 shadow-sm">
+        <form method="get" asp-action="Index" class="row g-3 align-items-center">
+            <input type="hidden" name="rangeFilter" value="custom" />
+            <div class="col-md-4">
+                <label class="form-label small fw-bold">Start Date</label>
+                <input type="date" name="startDate" value="@ViewBag.StartDate" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label small fw-bold">End Date</label>
+                <input type="date" name="endDate" value="@ViewBag.EndDate" class="form-control" />
+            </div>
+            <div class="col-md-4 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary me-2">Apply Custom Filter</button>
+                <a asp-action="Index" class="btn btn-outline-secondary">Reset</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- 8 Mandatory KPI Cards -->
+<div class="row g-3 mb-4">
+    <div class="col-md-3 col-sm-6">
+        <div class="card kpi-card bg-primary text-white p-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <span class="text-white-50 small fw-bold text-uppercase">Total Customers</span>
+                    <h2 class="fw-bold mb-0 mt-1">@Model.Kpis.TotalCustomers</h2>
+                </div>
+                <i class="bi bi-people fs-1 opacity-50"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+        <div class="card kpi-card bg-info text-white p-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <span class="text-white-50 small fw-bold text-uppercase">Total Leads</span>
+                    <h2 class="fw-bold mb-0 mt-1">@Model.Kpis.TotalLeads</h2>
+                </div>
+                <i class="bi bi-person-lines-fill fs-1 opacity-50"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+        <div class="card kpi-card bg-warning text-dark p-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <span class="text-dark-50 small fw-bold text-uppercase">Open Leads</span>
+                    <h2 class="fw-bold mb-0 mt-1">@Model.Kpis.OpenLeads</h2>
+                </div>
+                <i class="bi bi-person-plus fs-1 opacity-50"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+        <div class="card kpi-card bg-secondary text-white p-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <span class="text-white-50 small fw-bold text-uppercase">Total Opportunities</span>
+                    <h2 class="fw-bold mb-0 mt-1">@Model.Kpis.TotalOpportunities</h2>
+                </div>
+                <i class="bi bi-graph-up fs-1 opacity-50"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+        <div class="card kpi-card bg-dark text-white p-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <span class="text-white-50 small fw-bold text-uppercase">Open Opportunities</span>
+                    <h2 class="fw-bold mb-0 mt-1">@Model.Kpis.OpenOpportunities</h2>
+                </div>
+                <i class="bi bi-briefcase fs-1 opacity-50"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+        <div class="card kpi-card bg-success text-white p-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <span class="text-white-50 small fw-bold text-uppercase">Won Opportunities</span>
+                    <h2 class="fw-bold mb-0 mt-1">@Model.Kpis.WonOpportunities</h2>
+                </div>
+                <i class="bi bi-trophy fs-1 opacity-50"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+        <div class="card kpi-card bg-danger text-white p-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <span class="text-white-50 small fw-bold text-uppercase">Lost Opportunities</span>
+                    <h2 class="fw-bold mb-0 mt-1">@Model.Kpis.LostOpportunities</h2>
+                </div>
+                <i class="bi bi-x-circle fs-1 opacity-50"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+        <div class="card kpi-card bg-primary text-white p-3" style="background: linear-gradient(135deg, #0d6efd, #6610f2) !important;">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <span class="text-white-50 small fw-bold text-uppercase">Total Pipeline Value</span>
+                    <h2 class="fw-bold mb-0 mt-1">₹@Model.Kpis.TotalPipelineValue.ToString("N0")</h2>
+                </div>
+                <i class="bi bi-currency-rupee fs-1 opacity-50"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chart.js Charts -->
+<div class="row g-4 mb-4">
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="card-header bg-white border-0 pt-3">
+                <h5 class="fw-bold mb-0"><i class="bi bi-pie-chart text-info me-2"></i>Lead Status Breakdown</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="leadStatusChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="card-header bg-white border-0 pt-3">
+                <h5 class="fw-bold mb-0"><i class="bi bi-funnel text-primary me-2"></i>Opportunity Pipeline</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="opportunityPipelineChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="card-header bg-white border-0 pt-3">
+                <h5 class="fw-bold mb-0"><i class="bi bi-graph-up-arrow text-success me-2"></i>Monthly Sales Totals</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="monthlySalesChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Chart 1: Lead Status
+            var leadLabels = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.LeadStatusChart.Labels));
+            var leadValues = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.LeadStatusChart.Values));
+
+            new Chart(document.getElementById('leadStatusChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: leadLabels,
+                    datasets: [{
+                        data: leadValues,
+                        backgroundColor: ['#0d6efd', '#17a2b8', '#ffc107', '#dc3545', '#28a745']
+                    }]
+                },
+                options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+            });
+
+            // Chart 2: Opportunity Pipeline
+            var oppLabels = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.OpportunityPipelineChart.Labels));
+            var oppValues = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.OpportunityPipelineChart.Values));
+
+            new Chart(document.getElementById('opportunityPipelineChart'), {
+                type: 'bar',
+                data: {
+                    labels: oppLabels,
+                    datasets: [{
+                        label: 'Pipeline Value (₹)',
+                        data: oppValues,
+                        backgroundColor: '#0d6efd',
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+
+            // Chart 3: Monthly Sales
+            var monthLabels = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.MonthlySalesChart.Labels));
+            var monthValues = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.MonthlySalesChart.Values));
+
+            new Chart(document.getElementById('monthlySalesChart'), {
+                type: 'line',
+                data: {
+                    labels: monthLabels,
+                    datasets: [{
+                        label: 'Won Revenue (₹)',
+                        data: monthValues,
+                        borderColor: '#28a745',
+                        backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { position: 'bottom' } },
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+        });
+    </script>
+}

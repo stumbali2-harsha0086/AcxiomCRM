@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcxiomCRM.Domain", "AcxiomCRM.Domain\AcxiomCRM.Domain.csproj", "{17AA761F-4E56-430F-A4CB-AEEA0F0C4191}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcxiomCRM.Data", "AcxiomCRM.Data\AcxiomCRM.Data.csproj", "{46F3A300-C124-4B57-9BE9-3139BC9E9629}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcxiomCRM.Services", "AcxiomCRM.Services\AcxiomCRM.Services.csproj", "{D5F0DA2D-6F36-4D82-9C00-B647763EEBE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcxiomCRM.Web", "AcxiomCRM.Web\AcxiomCRM.Web.csproj", "{66AB7EBC-0BC2-4370-8455-7FB76F0C57F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcxiomCRM.Tests", "AcxiomCRM.Tests\AcxiomCRM.Tests.csproj", "{139A33CC-E898-4351-9DBC-529D448B788D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{17AA761F-4E56-430F-A4CB-AEEA0F0C4191}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17AA761F-4E56-430F-A4CB-AEEA0F0C4191}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17AA761F-4E56-430F-A4CB-AEEA0F0C4191}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17AA761F-4E56-430F-A4CB-AEEA0F0C4191}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46F3A300-C124-4B57-9BE9-3139BC9E9629}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46F3A300-C124-4B57-9BE9-3139BC9E9629}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46F3A300-C124-4B57-9BE9-3139BC9E9629}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46F3A300-C124-4B57-9BE9-3139BC9E9629}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5F0DA2D-6F36-4D82-9C00-B647763EEBE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5F0DA2D-6F36-4D82-9C00-B647763EEBE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5F0DA2D-6F36-4D82-9C00-B647763EEBE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5F0DA2D-6F36-4D82-9C00-B647763EEBE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66AB7EBC-0BC2-4370-8455-7FB76F0C57F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66AB7EBC-0BC2-4370-8455-7FB76F0C57F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66AB7EBC-0BC2-4370-8455-7FB76F0C57F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66AB7EBC-0BC2-4370-8455-7FB76F0C57F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{139A33CC-E898-4351-9DBC-529D448B788D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{139A33CC-E898-4351-9DBC-529D448B788D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{139A33CC-E898-4351-9DBC-529D448B788D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{139A33CC-E898-4351-9DBC-529D448B788D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,106 @@
+@model IEnumerable<AcxiomCRM.Domain.Entities.Lead>
+@{
+    ViewData["Title"] = "Lead Management";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="fw-bold mb-1"><i class="bi bi-person-lines-fill text-primary me-2"></i>Leads</h2>
+        <p class="text-muted mb-0">Capture, qualify, assign and convert prospective leads</p>
+    </div>
+    <a asp-action="Create" class="btn btn-primary shadow-sm">
+        <i class="bi bi-plus-lg me-1"></i> Add Lead
+    </a>
+</div>
+
+<!-- Search & Filter Bar -->
+<div class="card card-body bg-light border-0 mb-4 shadow-sm">
+    <form method="get" asp-action="Index" class="row g-3">
+        <div class="col-md-3">
+            <input type="text" name="searchName" value="@ViewBag.SearchName" class="form-control" placeholder="Search Lead Name..." />
+        </div>
+        <div class="col-md-3">
+            <input type="text" name="searchCompany" value="@ViewBag.SearchCompany" class="form-control" placeholder="Search Company..." />
+        </div>
+        <div class="col-md-3">
+            <select name="searchStatus" class="form-select">
+                <option value="">All Lead Statuses</option>
+                @foreach (LeadStatus st in Enum.GetValues(typeof(LeadStatus)))
+                {
+                    <option value="@st" selected="@(ViewBag.SearchStatus?.ToString() == st.ToString())">@st</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-3 d-flex">
+            <button type="submit" class="btn btn-primary me-2 flex-grow-1"><i class="bi bi-search"></i> Filter</button>
+            <a asp-action="Index" class="btn btn-outline-secondary"><i class="bi bi-arrow-counterclockwise"></i> Reset</a>
+        </div>
+    </form>
+</div>
+
+<div class="table-responsive shadow-sm rounded-4">
+    <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+            <tr>
+                <th>Code</th>
+                <th>Lead Name</th>
+                <th>Company</th>
+                <th>Source</th>
+                <th>Status</th>
+                <th>Expected Value</th>
+                <th>Assigned To</th>
+                <th class="text-end">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr>
+                    <td colspan="8" class="text-center py-4 text-muted">No leads found.</td>
+                </tr>
+            }
+            else
+            {
+                @foreach (var l in Model)
+                {
+                    <tr>
+                        <td class="fw-bold text-primary">@l.LeadCode</td>
+                        <td>@l.LeadName</td>
+                        <td>@(string.IsNullOrEmpty(l.CompanyName) ? "-" : l.CompanyName)</td>
+                        <td><span class="badge bg-light text-dark border">@l.Source</span></td>
+                        <td>
+                            @switch (l.Status)
+                            {
+                                case LeadStatus.New: <span class="badge bg-info">New</span> break;
+                                case LeadStatus.Contacted: <span class="badge bg-warning text-dark">Contacted</span> break;
+                                case LeadStatus.Qualified: <span class="badge bg-primary">Qualified</span> break;
+                                case LeadStatus.Converted: <span class="badge bg-success">Converted</span> break;
+                                case LeadStatus.Lost: <span class="badge bg-danger">Lost</span> break;
+                                default: <span class="badge bg-secondary">@l.Status</span> break;
+                            }
+                        </td>
+                        <td class="fw-bold">₹@l.ExpectedValue.ToString("N0")</td>
+                        <td>@(l.AssignedUser?.FullName ?? "Unassigned")</td>
+                        <td class="text-end">
+                            @if (l.Status != LeadStatus.Converted)
+                            {
+                                <a asp-action="Convert" asp-route-id="@l.LeadId" class="btn btn-sm btn-success me-1" title="Convert to Customer">
+                                    <i class="bi bi-arrow-repeat me-1"></i> Convert
+                                </a>
+                            }
+                            <a asp-action="Edit" asp-route-id="@l.LeadId" class="btn btn-sm btn-outline-primary me-1" title="Edit">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <form asp-action="Delete" asp-route-id="@l.LeadId" method="post" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this lead?');">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

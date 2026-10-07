@@ -1,0 +1,55 @@
+@model AcxiomCRM.Web.Models.LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="row justify-content-center my-5">
+    <div class="col-md-5 col-lg-4">
+        <div class="card shadow-lg border-0 rounded-4">
+            <div class="card-body p-4 p-md-5">
+                <div class="text-center mb-4">
+                    <i class="bi bi-shield-lock-fill text-primary display-4"></i>
+                    <h3 class="fw-bold mt-2">Welcome Back</h3>
+                    <p class="text-muted">Sign in to your AcxiomCRM account</p>
+                </div>
+
+                <form asp-action="Login" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger p-2 small" role="alert"></div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Email" class="form-control" placeholder="name@example.com" />
+                        <label asp-for="Email">Email Address</label>
+                        <span asp-validation-for="Email" class="text-danger small ms-1"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Password" class="form-control" placeholder="Password" />
+                        <label asp-for="Password">Password</label>
+                        <span asp-validation-for="Password" class="text-danger small ms-1"></span>
+                    </div>
+
+                    <div class="form-check mb-3">
+                        <input asp-for="RememberMe" class="form-check-input" />
+                        <label asp-for="RememberMe" class="form-check-label text-muted">Remember me</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 py-2 fw-bold shadow-sm">
+                        <i class="bi bi-box-arrow-in-right me-1"></i> Sign In
+                    </button>
+                </form>
+
+                <div class="text-center mt-4">
+                    <p class="text-muted small">Don't have an account? <a asp-action="Register" class="text-primary text-decoration-none fw-bold">Register here</a></p>
+                </div>
+
+                <div class="alert alert-light border small mt-3">
+                    <strong>Demo Logins:</strong><br />
+                    • Admin: <code>admin@acxiomcrm.com</code> / <code>Admin@123</code><br />
+                    • Manager: <code>manager@acxiomcrm.com</code> / <code>Manager@123</code><br />
+                    • Sales Exec: <code>sales@acxiomcrm.com</code> / <code>Sales@123</code>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

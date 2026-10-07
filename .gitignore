@@ -1,0 +1,20 @@
+## Ignore Visual Studio / .NET build artifacts
+bin/
+obj/
+.vs/
+.vscode/
+*.user
+*.userosscache
+*.sln.docstates
+
+## Ignore SQLite Database files
+*.db
+*.db-shm
+*.db-wal
+*.db-journal
+
+## OS generated files
+[Th]umbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.stackdump
