@@ -11,7 +11,7 @@ The system demonstrates the complete customer-sales lifecycle—from lead captur
 
 ---
 
-## 🏗️ Architecture & Project Structure
+##  Architecture & Project Structure
 
 The solution follows a strict **Layered Architecture** adhering to clean architecture principles:
 
@@ -26,7 +26,7 @@ AcxiomCRM/
 
 ---
 
-## 🔑 Seeded Demo Credentials
+##  Seeded Demo Credentials
 
 On first run, the system automatically initializes the database schema (`AcxiomCRM.db`) and seeds initial roles and accounts:
 
@@ -38,7 +38,7 @@ On first run, the system automatically initializes the database schema (`AcxiomC
 
 ---
 
-## ✨ Features & Module Implementation
+##  Features & Module Implementation
 
 ### 1. Security & Authentication (ASP.NET Core Identity)
 - **Password Policy**: Enforces minimum 8 characters, uppercase, lowercase, digit, and special characters.
@@ -85,7 +85,7 @@ On first run, the system automatically initializes the database schema (`AcxiomC
 
 ---
 
-## 🧪 Automated Test Verification
+##  Automated Test Verification
 
 Run automated xUnit acceptance tests to verify all business rules:
 
@@ -100,7 +100,7 @@ Passed! - Failed: 0, Passed: 7, Skipped: 0, Total: 7, Duration: 1 s
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 - [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
